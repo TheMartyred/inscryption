@@ -5,6 +5,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+from Card import Card
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -23,6 +25,34 @@ async def create_channel(ctx, channel_name='real-python'):
 async def start_match(ctx, oponent='bot'):
     guild = ctx.guild
     await ctx.send("hello "+ctx.author.display_name+" and "+oponent+"!") 
-    #await ctx.send(ctx.author) 
+
+@bot.command(name='test-cards')
+async def start_match(ctx, card='stunted_wolf'):
+    guild = ctx.guild
+    print("sending card: "+card)
+    card = "Leshy/"+card+".png"
+    card2 = "Leshy/stinkbug.png"
+    with open(card, "rb") as fh:
+        f = discord.File(fh, filename=card)
+    with open(card2, "rb") as fh:
+        f2 = discord.File(fh, filename=card2)
+    await ctx.send(files=[f,f2])
+
+@bot.command(name='test-card-class')
+async def start_match(ctx):
+    guild = ctx.guild
+    card = Card()
+    with open(card.image, "rb") as fh:
+        f = discord.File(fh, filename=card.image)
+    await ctx.send(content=card,file=f)
+
+@bot.command(name='test-glitch')
+async def start_match(ctx, card='Glitched_Card'):
+    guild = ctx.guild
+    print("sending card: "+card)
+    card = "Leshy/"+card+".gif"
+    with open(card, "rb") as fh:
+        f = discord.File(fh, filename=card)
+    await ctx.send(file=f)
 
 bot.run(TOKEN)
