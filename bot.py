@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 
 from Card import Card
 
+import sys
+from PIL import Image
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -38,6 +41,23 @@ async def test_cards(ctx, card='stunted_wolf'):
     with open(card2, "rb") as fh:
         f2 = discord.File(fh, filename=card2)
     await ctx.send(files=[f,f2])
+    
+@bot.command(name='test-boardprint')
+async def test_boardprint(ctx):
+    """tests printing a game board of multiple cards as a composite image"""
+    images = [Image.open(x) for x in ['Leshy/wolf.png','Leshy/Glitched_Card.gif', 'Leshy/Stunted_wolf.png']]
+    widths, heights = zip(*(i.size for i in images))
+    total_width = sum(widths)
+    max_height = max(heights)
+    new_im = Image.new('RGB', (total_width, max_height))
+    x_offset = 0
+    for im in images:
+        new_im.paste(im, (x_offset,0))
+        x_offset += im.size[0]
+    new_im.save('temp.jpg')
+    with open("temp.jpg", "rb") as fh:
+        f = discord.File(fh, filename="temp.jpg")
+    await ctx.send(file=f)
 
 @bot.command(name='test-card-class')
 async def test_card_class(ctx):
