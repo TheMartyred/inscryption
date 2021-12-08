@@ -31,11 +31,11 @@ async def start_match(ctx, oponent='bot'):
     await ctx.send("hello "+ctx.author.display_name+" and "+oponent+"!") 
 
 @bot.command(name='test-cards')
-async def test_cards(ctx, card='stunted_wolf'):
+async def test_cards(ctx, card='Stunted_Wolf'):
     """tests printing a game board of multiple cards"""
     print("sending card: "+card)
     card = "Leshy/"+card+".png"
-    card2 = "Leshy/stinkbug.png"
+    card2 = "Leshy/Stinkbug.png"
     with open(card, "rb") as fh:
         f = discord.File(fh, filename=card)
     with open(card2, "rb") as fh:
@@ -45,7 +45,7 @@ async def test_cards(ctx, card='stunted_wolf'):
 @bot.command(name='test-boardprint')
 async def test_boardprint(ctx):
     """tests printing a game board of multiple cards as a composite image"""
-    images = [Image.open(x) for x in ['Leshy/wolf.png','Leshy/Glitched_Card.gif', 'Leshy/Stunted_wolf.png']]
+    images = [Image.open(x) for x in ['Leshy/Wolf.png','Leshy/Glitched_Card.gif', 'Leshy/Stunted_Wolf.png']]
     widths, heights = zip(*(i.size for i in images))
     total_width = sum(widths)
     max_height = max(heights)
