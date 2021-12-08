@@ -54,9 +54,9 @@ async def test_boardprint(ctx):
     for im in images:
         new_im.paste(im, (x_offset,0))
         x_offset += im.size[0]
-    new_im.save('temp.jpg')
-    with open("temp.jpg", "rb") as fh:
-        f = discord.File(fh, filename="temp.jpg")
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
     await ctx.send(file=f)
 
 @bot.command(name='test-card-class')
@@ -80,5 +80,36 @@ async def test_glitch(ctx, card='Glitched_Card'):
     with open(card, "rb") as fh:
         f = discord.File(fh, filename=card)
     await ctx.send(file=f)
+
+@bot.command(name='test-cardprint')
+async def test_cardprint(ctx):
+    """tests printing a custom card image"""
+    #create card
+    card = Card(image="Leshy/Stinkbug.png")
+    #alter card to test alterations
+    card.buffCard("hp",2)
+    card.buffCard("atk",2)
+    card.buffCard("effect","flying")
+    card.takeDamage(1)
+    #retrieve card image
+    cardImage = [Image.open(card.image)]
+    #get size of card image
+    widths, heights = zip(*(i.size for i in cardImage))
+    total_width = sum(widths)
+    max_height = max(heights)
+    print(str(total_width)+" by "+str(max_height))
+    #create matching new image
+    new_im = Image.new('RGBA', (total_width, max_height))
+    new_im.paste(cardImage[0], (0,0))
+    #add sigils
+    images = [Image.open(x) for x in ['Sigils/Ability_flying.png','Sigils/Ability_Brittle.png', 'Sigils/Ability_HostageFile.png']]
+    y_offset = 0
+    for im in images:
+        new_im.paste(im, (0,y_offset), im.convert("RGBA"))
+        y_offset += im.size[0]
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
+    await ctx.send(content=card,file=f)
 
 bot.run(TOKEN)

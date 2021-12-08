@@ -1,3 +1,6 @@
+import sys
+from PIL import Image
+
 class Card:
     #pseudo permanent stats: These remain across multiple matches but can be altered between
     name="glitch"
@@ -7,6 +10,7 @@ class Card:
     effects=[]
     cost=0
     currency="blood"
+    clan="none"
 
     #temporary stats: These respresent the card's current stats and reset when a match is over
     health=hp
@@ -31,7 +35,7 @@ class Card:
         retun=""+self.name+"\n"+str(self.atk)+" attack power, "+str(self.health)+"/"+str(self.hp)+" health points\n"
         for x in self.effects:
             retun+=""+x+", "
-        retun+="\ncosts: "+str(self.cost)+" "+self.currency
+        retun+="\ncosts: "+str(self.cost)+" "+self.currency+"\nClan: "+self.clan
         return retun
 
     def takeDamage(self, damage):
