@@ -7,6 +7,7 @@ https://discord.com/api/oauth2/authorize?client_id=917175698299441203&permission
 Doesn't do much currently in the way of actually playing the game, but can demonstrate functionality that will be needed later when the game is actually functional
 
 **CURRENT FUNCTIONALITY**
+
 !create-channel [name="real-python"] 
   creates a channel with the provided name
   
