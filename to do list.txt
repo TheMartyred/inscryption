@@ -1,0 +1,36 @@
+get gameboard working
+figure out how to store gameboards and player info
+	-multiple games?
+	-Autocancelling games?
+test printing game board
+get basic card functions working
+figure out how to interact with players
+	-choosing card
+	-placing card
+	-activated abilities
+	-reactions?
+program special abilities
+	-phase 1
+	-phase 2
+	-phase 3
+program card alteration
+	-phase 1
+		-add card
+		-sacrifice
+		-campfire
+		-mycologist
+		-woodcutter
+		-trial?
+	-phase 3
+		-shop
+		-add sigil
+		-card swap
+		-recycle
+		-overclock
+		-beast upgrade
+		-mox upgrade
+		-card creator?
+		-vessel upgrade
+revisit wiki in search of more cards
+Kaycee's Mod?
+Boss mechanics for players?

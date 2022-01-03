@@ -1,4 +1,3 @@
-# bot.py
 import os
 
 import discord
@@ -6,6 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 from Card import Card
+from Gameboard import Gameboard
 
 import sys
 from PIL import Image
@@ -45,15 +45,17 @@ async def test_cards(ctx, card='Stunted_Wolf'):
 @bot.command(name='test-boardprint')
 async def test_boardprint(ctx):
     """tests printing a game board of multiple cards as a composite image"""
-    images = [Image.open(x) for x in ['Leshy/Wolf.png','Leshy/Glitched_Card.gif', 'Leshy/Stunted_Wolf.png']]
-    widths, heights = zip(*(i.size for i in images))
-    total_width = sum(widths)
-    max_height = max(heights)
-    new_im = Image.new('RGB', (total_width, max_height))
-    x_offset = 0
-    for im in images:
-        new_im.paste(im, (x_offset,0))
-        x_offset += im.size[0]
+    #images = [Image.open(x) for x in ['Leshy/Wolf.png','Leshy/Glitched_Card.gif', 'Leshy/Stunted_Wolf.png']]
+    #widths, heights = zip(*(i.size for i in images))
+    #total_width = sum(widths)
+    #max_height = max(heights)
+    #new_im = Image.new('RGB', (total_width, max_height))
+    #x_offset = 0
+    #for im in images:
+        #new_im.paste(im, (x_offset,0))
+        #x_offset += im.size[0]
+    board=Gameboard()
+    new_im=board.testPrintCards()
     new_im.save('temp.png')
     with open("temp.png", "rb") as fh:
         f = discord.File(fh, filename="temp.png")
