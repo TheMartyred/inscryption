@@ -1,5 +1,7 @@
 import os
 
+import pickle
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -113,5 +115,37 @@ async def test_cardprint(ctx):
     with open("temp.png", "rb") as fh:
         f = discord.File(fh, filename="temp.png")
     await ctx.send(content=card,file=f)
+
+@bot.command(name='test-turn')
+async def test_turn(ctx, opponent="test"):
+    """tests pickling and unpickling a game board"""
+    #create gameboard
+    board=pickle.load(open(ctx.author.display_name+"&"+opponent+".p","rb"))
+    #print the board
+    new_im=board.printCards(board.board[1])
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
+    await ctx.send(file=f)
+    new_im=board.printCards(board.board[0])
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
+    await ctx.send(file=f)
+    #perform turn
+    board.turn()
+    #pickle the board
+    pickle.dump(board, open(ctx.author.display_name+"&"+opponent+".p","wb"))
+    #print the board
+    new_im=board.printCards(board.board[1])
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
+    await ctx.send(file=f)
+    new_im=board.printCards(board.board[0])
+    new_im.save('temp.png')
+    with open("temp.png", "rb") as fh:
+        f = discord.File(fh, filename="temp.png")
+    await ctx.send(file=f)
 
 bot.run(TOKEN)

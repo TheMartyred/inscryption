@@ -3,22 +3,24 @@ from PIL import Image
 
 class Card:
     #pseudo permanent stats: These remain across multiple matches but can be altered between
-    name="glitch"
+    name="emptySpace"
     atk=0
     hp=1
-    image="Leshy/Glitched_Card.gif"
+    image="Leshy/empty.png"
     effects=[] #will need to be named after the file names of the sigils for card print method to work
+    special=[]
     cost=0
     currency="blood"
     clan="none"
-    bleeds=True
+    bleeds=False
+    lives=1
 
     #temporary stats: These respresent the card's current stats and reset when a match is over
     health=hp
     power=atk
     tempEffects=[]
 
-    def __init__(self, name="glitch", atk=0, hp=1, image="Leshy/Glitched_Card.gif", effects=[], cost=0, currency="blood", bleeds=True):
+    def __init__(self, name="glitch", atk=0, hp=1, image="Leshy/empty.png", effects=[], cost=0, currency="blood", bleeds=False, special=["empty space"],lives=1):
         """initialization method: takes all stats as optional arguments, defaults to a test 'glitched' card"""
         self.atk=atk
         self.hp=hp
@@ -31,9 +33,14 @@ class Card:
         
         self.health=hp
         self.power=atk
+        self.lives=lives
+
+        self.special=special
 
     def __str__(self):
         """to string return method: displays all the cards stats in text form"""
+        if "empty space" in self.special:
+            return ""
         retun=""+self.name+"\n"+str(self.atk)+" attack power, "+str(self.health)+"/"+str(self.hp)+" health points\n"
         for x in self.effects:
             retun+=""+x+", "
