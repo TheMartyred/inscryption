@@ -28,3 +28,6 @@ Doesn't do much currently in the way of actually playing the game, but can demon
   
 !test-cardprint
   tests printing a composite image of a card with added sigils
+
+!test-turn
+  tests loading a boardstate, performing a turn action on it and then saving it back to the same file
